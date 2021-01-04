@@ -79,7 +79,7 @@ variables:
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
 
 action:
-  - service: tts.google_translate
+  - service: tts.google_translate_say
     data:
       entity_id:
         - !input 'google_device'
