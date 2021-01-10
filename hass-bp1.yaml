@@ -17,6 +17,13 @@ blueprint:
         entity:
           domain: media_player
       default: ""
+    google_volume:
+      name: Google Volume
+      description: The Google device Volume.
+      selector:
+        entity:
+          domain: volume_level
+      default: "0.5"
     message:
       name: Message (Optional)
       description: 'Default: "There is Somebody at the Door!"'
@@ -79,6 +86,11 @@ variables:
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
 
 action:
+  - service: media_player.volume_set
+    entity_id:
+      - !input 'google_device'
+    data:
+      volume_level: 0.5
   - service: tts.google_translate_say
     data:
       entity_id:
