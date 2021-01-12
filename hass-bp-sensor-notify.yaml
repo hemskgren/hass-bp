@@ -59,7 +59,7 @@ blueprint:
             unit_of_measurement: seconds
             mode: slider
 
-  #source_url: https://gist.github.com/seamus65/294db1010ba4e27e0cd8889ef110eb24
+  source_url: https://gist.github.com/seamus65/294db1010ba4e27e0cd8889ef110eb24
 
 mode: single
 
