@@ -106,14 +106,14 @@ variables:
   snapshot_create_file_path: "/config/www/snapshot_{{ states[camera].object_id }}.jpg"
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
 
-{% set if_data1 = condition: %}
-{% set if_data2 =   - condition: state  %}
-{% set if_data3 =     entity_id: !input alarm_control  %}
-{% set if_data4 =     state: armed_away %}
-{{ if_data1 if if_condition }}
-{{ if_data2 if if_condition }}
-{{ if_data3 if if_condition }}
-{{ if_data4 if if_condition }}
+# {% set if_data1 = condition: %}
+# {% set if_data2 =   - condition: state  %}
+# {% set if_data3 =     entity_id: !input alarm_control  %}
+# {% set if_data4 =     state: armed_away %}
+# {{ if_data1 if if_condition }}
+# {{ if_data2 if if_condition }}
+# {{ if_data3 if if_condition }}
+# {{ if_data4 if if_condition }}
 
 action:
   - service: media_player.volume_set
