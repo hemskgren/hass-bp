@@ -17,12 +17,6 @@ blueprint:
         entity:
           domain: media_player
       default: ""
-    alarm_control:
-      name: Alarm control panel
-      selector:
-        entity:
-          domain: alarm_control_panel
-      default: ""
     google_volume:
       name: Google Volume
       description: The Google device Volume.
@@ -58,6 +52,12 @@ blueprint:
       selector:
         boolean:
       default: false
+    alarm_control:
+      name: Alarm control panel
+      selector:
+        entity:
+          domain: alarm_control_panel
+      default: ""
     if_camera:
       name: Use camera
       description: Toggle if include camera, default is false
@@ -93,24 +93,27 @@ trigger:
   from: "off"
   to: "on"
 
-{% set if_condition =
-condition:
-  - condition: state
-    entity_id: alarm_control_panel.home_alarm
-    state: armed_away %}
-{{ if_condition if if_condition }}
-
 variables:
   camera: !input camera
   if_camera: !input if_camera
   notify_device: !input notify_device
   is_ios: !input is_ios
   if_condition: !input if_condition
+  alarm_control: !input alarm_control
   notification_title: !input notification_title
   notification_message: !input notification_message
   delay: !input delay
   snapshot_create_file_path: "/config/www/snapshot_{{ states[camera].object_id }}.jpg"
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
+
+{% set if_data1 = condition: %}
+{% set if_data2 =   - condition: state  %}
+{% set if_data3 =     entity_id: !input alarm_control  %}
+{% set if_data4 =     state: armed_away %}
+{{ if_data1 if if_condition }}
+{{ if_data2 if if_condition }}
+{{ if_data3 if if_condition }}
+{{ if_data4 if if_condition }}
 
 action:
   - service: media_player.volume_set
