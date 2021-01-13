@@ -1,5 +1,5 @@
 blueprint:
-  name: Doorbell - Notify Google and send camera snapshot to app with condition
+  name: Doorbell - Notify Google and send camera snapshot to app with condition on alarm away
   description: 'Make an announcement over Google devices when the doorbell is pushed and send a camera snapshot to your app with condition.'
 
   domain: automation
@@ -106,14 +106,10 @@ variables:
   snapshot_create_file_path: "/config/www/snapshot_{{ states[camera].object_id }}.jpg"
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
 
-# {% set if_data1 = condition: %}
-# {% set if_data2 =   - condition: state  %}
-# {% set if_data3 =     entity_id: !input alarm_control  %}
-# {% set if_data4 =     state: armed_away %}
-# {{ if_data1 if if_condition }}
-# {{ if_data2 if if_condition }}
-# {{ if_data3 if if_condition }}
-# {{ if_data4 if if_condition }}
+condition:
+  - condition: state
+    entity_id: !input 'alarm_control'
+    state: armed_away
 
 action:
   - service: media_player.volume_set
